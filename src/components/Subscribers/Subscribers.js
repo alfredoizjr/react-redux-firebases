@@ -3,9 +3,10 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Link } from "react-router-dom";
+import Spinner from "../layout/Spiner";
 
 const Subscribers = ({ subscribers }) => {
-  if (!subscribers) return <h2> Loading... </h2>;
+  if (!subscribers) return <Spinner />;
 
   return (
     <div className="row">
@@ -16,7 +17,7 @@ const Subscribers = ({ subscribers }) => {
         <h3>
           <i className="fas fa-users"></i> Subscribers
         </h3>
-        <table className="table">
+        <table className="table table-striped">
           <thead className="thead-dark">
             <tr>
               <th scope="col">Name</th>
