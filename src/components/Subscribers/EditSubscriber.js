@@ -8,7 +8,7 @@ class EditSubcriber extends Component {
     render() { 
         return ( 
             <div>
-                New Subcriber
+                Edit Subcriber
             </div>
          );
     }

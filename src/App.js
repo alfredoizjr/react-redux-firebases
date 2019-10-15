@@ -19,8 +19,8 @@ function App() {
         <Switch>
           <Route exact path="/subcribers" component={Subscriber} />
           <Route exact path="/subcriber/:id" component={ShowSubcriber} />
-          <Route exact path="/subcriber/new" component={NewSubcriber} />
-          <Route exact path="/subcriber/edit/:id" component={EditSubcriber} />
+          <Route exact path="/new" component={NewSubcriber} />
+          <Route exact path="/edit/:id" component={EditSubcriber} />
         </Switch>
       </div>
     </Router>

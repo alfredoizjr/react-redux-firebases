@@ -11,7 +11,7 @@ const Subscribers = ({ subscribers }) => {
   return (
     <div className="row">
       <div className="col-md-12 m-4">
-          <Link className='btn btn-primary' to='/subcriber/new'><i className='fas fa-plus'></i> Add new user</Link>
+          <Link className='btn btn-primary' to='/new'><i className='fas fa-plus'></i> Add new user</Link>
       </div>
       <div className="col-md-12 mt-2">
         <h3>
@@ -33,7 +33,7 @@ const Subscribers = ({ subscribers }) => {
                 </td>
                 <td>{sub.career}</td>
                 <td>
-                  <Link className="btn btn-success" to={`/subcriber/${sub.id}`}>
+                  <Link className="btn btn-success" to={`/edit/${sub.id}`}>
                     <i className="fas fa-angle-double-right"></i> More
                     information
                   </Link>
