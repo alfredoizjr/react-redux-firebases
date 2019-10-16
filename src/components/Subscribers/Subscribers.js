@@ -48,7 +48,7 @@ const Subscribers = ({ subscribers, firestore }) => {
                 </td>
                 <td>{sub.career}</td>
                 <td>
-                  <Link className="btn btn-success" to={`/edit/${sub.id}`}>
+                  <Link className="btn btn-success" to={`subcriber/${sub.id}`}>
                     <i className="fas fa-angle-double-right"></i> More
                     information
                   </Link>

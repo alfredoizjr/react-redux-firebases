@@ -3,7 +3,6 @@ import uuid from 'uuid/v4';
 import { Link } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import Notification from '../layout/Notification'
-
 import PropTypes from 'prop-types';
 
 class NewSubcriber extends Component {
