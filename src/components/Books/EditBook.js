@@ -24,9 +24,9 @@ class EditBook extends Component {
     firestore.update({
         collection: 'books',
         doc: book.id
-    },this.setState).then(() => {
-        Notification({ title: 'Edited member', message: 'Member  profile has edited success', type: 'success' });
-        history.push('/subcribers');
+    },this.state).then(() => {
+        Notification({ title: 'Edited book', message: 'Book  data has edited success', type: 'success' });
+        history.push('/');
     });
   };
 
@@ -99,7 +99,7 @@ class EditBook extends Component {
               </button>
               <Link
                 className="btn btn-danger"
-                to={`/subcriber/${this.props.match.params.id}`}
+                to={`/book/details/${this.props.match.params.id}`}
               >
                 Cancel
               </Link>
