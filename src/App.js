@@ -5,6 +5,8 @@ import NewSubcriber from "./components/Subscribers/NewSubscriber";
 import EditSubcriber from "./components/Subscribers/EditSubscriber";
 import ShowSubcriber from "./components/Subscribers/ShowSubscriber";
 import Navbar from "./components/layout/Navbar";
+// notification
+import ReactNotifications from 'react-notifications-component';
 
 // redux
 import { Provider } from 'react-redux';
@@ -15,6 +17,7 @@ function App() {
     <Provider store={store}>
     <Router>
       <Navbar />
+      <ReactNotifications />
       <div className="container mt-2">
         <Switch>
           <Route exact path="/subcribers" component={Subscriber} />

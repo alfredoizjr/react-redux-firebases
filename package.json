@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "animate.css": "^3.7.2",
     "firebase": "^7.2.0",
+    "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-notifications-component": "^2.1.0",
     "react-redux": "^5.1.1",
     "react-redux-firebase": "^2.5.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
-    "redux-firestore": "^0.9.0"
+    "redux-firestore": "^0.9.0",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",

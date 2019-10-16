@@ -4,9 +4,24 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spiner";
+import Notification from '../layout/Notification';
 
-const Subscribers = ({ subscribers }) => {
+const Subscribers = ({ subscribers, firestore }) => {
+
+  // weating for data
   if (!subscribers) return <Spinner />;
+  // remove a subcriber
+ const  removeSusbcriber = id => {
+
+  firestore.delete({
+    collection: 'subscribers',
+    doc: id
+  }).then(()=>{ 
+
+    Notification({title: 'Remove member', message: 'The Member has been deleted',type: 'warning'});
+})
+
+ }
 
   return (
     <div className="row">
@@ -37,6 +52,7 @@ const Subscribers = ({ subscribers }) => {
                     <i className="fas fa-angle-double-right"></i> More
                     information
                   </Link>
+                  <button type='button' className='btn btn-danger' onClick={() => removeSusbcriber(sub.id)}> <i className='fas fa-trash-alt'></i> Remove</button>
                 </td>
               </tr>
             ))}
