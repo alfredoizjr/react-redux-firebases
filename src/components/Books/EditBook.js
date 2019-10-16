@@ -7,7 +7,7 @@ import Spinner from "../layout/Spiner";
 import Notification from "../layout/Notification";
 import PropTypes from "prop-types";
 
-class EditSubcriber extends Component {
+class EditBook extends Component {
   state = {};
 
   handleChange = e => {
@@ -20,72 +20,89 @@ class EditSubcriber extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    // get firestore and history from props
-    const { subscriber, firestore, history } = this.props;
-
-    // save in db
+    const { firestore, history, book } = this.props;
     firestore.update({
-        collection: 'subscribers',
-        doc: subscriber.id
-    },this.state).then(() => {
+        collection: 'books',
+        doc: book.id
+    },this.setState).then(() => {
         Notification({ title: 'Edited member', message: 'Member  profile has edited success', type: 'success' });
         history.push('/subcribers');
     });
   };
 
   render() {
-    const { subscriber } = this.props;
-    if (!subscriber) {
+    const { book } = this.props;
+
+    if (!book) {
       return <Spinner />;
     }
+
     return (
       <div className="row mt-5">
         <div className="col-md-6 offset-md-3">
           <h3>
-            <i className="fas fa-user-edit"></i> Edit {subscriber.name}
+            <i className="fas fa-user-edit"></i> Edit {book.title}
           </h3>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="title">Title</label>
               <input
                 type="text"
                 className="form-control"
-                id="name"
-                placeholder="Edit Name"
-                name="name"
+                id="title"
+                placeholder="Enter title"
+                name="title"
                 onChange={this.handleChange}
-                defaultValue={subscriber.name}
+                defaultValue={book.title}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="last">Last</label>
+              <label htmlFor="editor">editor</label>
               <input
                 type="text"
                 className="form-control"
-                id="last"
-                placeholder="Edit Last name"
-                name="last"
+                id="editor"
+                placeholder="Enter editor"
+                name="editor"
                 onChange={this.handleChange}
-                defaultValue={subscriber.last}
+                defaultValue={book.editor}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="career">Career</label>
+              <label htmlFor="isbn">ISBN</label>
               <input
                 type="text"
                 className="form-control"
-                id="career"
-                placeholder="Edit Your Career"
-                name="career"
+                id="isbn"
+                placeholder="Enter ISBN"
+                name="ISBN"
                 onChange={this.handleChange}
-                defaultValue={subscriber.career}
+                defaultValue={book.ISBN}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="store">In store</label>
+              <input
+                type="number"
+                min="0"
+                className="form-control"
+                id="store"
+                placeholder="In store"
+                name="store"
+                onChange={this.handleChange}
+                defaultValue={book.store}
               />
             </div>
             <div className="text-right">
               <button type="submit" className="btn btn-primary">
-                Edit
+                Edit Book
               </button>
-              <Link className='btn btn-danger' to={`/subcriber/${this.props.match.params.id}`}>Cancel</Link>
+              <Link
+                className="btn btn-danger"
+                to={`/subcriber/${this.props.match.params.id}`}
+              >
+                Cancel
+              </Link>
             </div>
           </form>
         </div>
@@ -94,19 +111,19 @@ class EditSubcriber extends Component {
   }
 }
 
-EditSubcriber.protoTypes = {
-    firestore: PropTypes.object.isRequired
-}
+EditBook.protoTypes = {
+  firestore: PropTypes.object.isRequired
+};
 
 export default compose(
   firestoreConnect(props => [
     {
       collection: "subscribers",
-      storeAs: "subscriber",
+      storeAs: "book",
       doc: props.match.params.id
     }
   ]),
   connect(({ firestore: { ordered } }, props) => ({
-    subscriber: ordered.subscriber && ordered.subscriber[0]
+    book: ordered.book && ordered.book[0]
   }))
-)(EditSubcriber);
+)(EditBook);

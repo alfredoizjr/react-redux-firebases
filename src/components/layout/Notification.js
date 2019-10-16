@@ -11,8 +11,8 @@ const Notification = ({title,message,type}) => {
         message,
         type,                         // 'default', 'success', 'info', 'warning'
         container: 'top-right',                // where to position the notifications
-        animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
-        animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+        animationIn: ["animated", "fadeInDown"],     // animate.css classes that's applied
+        animationOut: ["animated", "fadeOutUp"],   // animate.css classes that's applied
         dismiss: {
           duration: 3000 
         }
