@@ -100,7 +100,13 @@ class SharedBook extends Component {
       return <Spinner />;
     }
 
-    let showData, btnRequets;
+    let showData, btnRequets, notResultsMessage;
+
+    if (this.state.notResults) {
+      notResultsMessage = <div className='alert alert-warning'><i className="fas fa-exclamation-triangle"></i> <b>Not result was found</b></div>
+    } else {
+      notResultsMessage = null;
+    }
 
     if (user.name) {
       showData = <DataSubcriber subcriber={user} />;
@@ -130,7 +136,7 @@ class SharedBook extends Component {
             <i className="fas fa-book"></i> Request of the book {book.title}
           </h3>
           <form onSubmit={this.handleSubmit} className="mb-4">
-            <legend className="text-center">Search for the subcriber</legend>
+            <legend className="text-center"> Search for the subcriber</legend>
             <div className="form-group">
               <input
                 className="form-control"
@@ -147,6 +153,8 @@ class SharedBook extends Component {
 
           {showData}
           {btnRequets}
+          {notResultsMessage}
+
         </div>
       </div>
     );
