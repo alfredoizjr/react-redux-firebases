@@ -4,21 +4,45 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spiner";
+import Notification from "../layout/Notification";
 import PropTypes from "prop-types";
+import Ocupate from "./Ocupate";
 
 class DetailtBook extends Component {
-  state = {};
+
+  returnBook = code => {
+    // get firestore from props
+    const {firestore, book } = this.props;
+    // copy of the book
+    const updateBook = {...book};
+    console.log(updateBook);
+
+    // remove the member is retunt it
+    const requestBook = book.shared.filter(( element )=> element.code !== code);
+    updateBook.shared = requestBook;
+
+    firestore.update({
+      collection: 'books',
+      doc: updateBook.id
+    },updateBook).then(() => {
+      Notification({ title: 'Return Book', message: 'Book is return success', type: 'success' });
+    })
+
+  };
 
   render() {
     if (!this.props.book) {
       return <Spinner />;
     }
 
-    const { book } = this.props
+    const { book } = this.props;
 
-    let btnRequestBook = (book.store - book.shared.length > 0)
-      ? <Link className='btn btn-success' to={`/book/search/${book.id}`} >Rquest this book</Link>
-      : null;
+    let btnRequestBook =
+      book.store - book.shared.length > 0 ? (
+        <Link className="btn btn-success" to={`/book/search/${book.id}`}>
+          Rquest this book
+        </Link>
+      ) : null;
 
     return (
       <div className="row mt-5">
@@ -35,11 +59,10 @@ class DetailtBook extends Component {
             <i className="fas fa-pencil-alt"></i> Edit
           </Link>
         </div>
-        <div className='col-md-12'>
+        <div className="col-md-12">
           <hr className="m-5" />
         </div>
         <div className="col-md-6">
-
           <h3 className="mb-4">{book.title}</h3>
           <p>
             <span className="font-weight-bold">Editor: </span>
@@ -51,33 +74,24 @@ class DetailtBook extends Component {
           </p>
           <p>
             <span className="font-weight-bold">In store: </span>
-            <span className='badge badge-primary'>{book.store}</span>
+            <span className="badge badge-primary">{book.store}</span>
           </p>
           <p>
             <span className="font-weight-bold">Avaliable: </span>
-            <span className='badge badge-primary'>{book.store - book.shared.length}</span>
+            <span className="badge badge-primary">
+              {book.store - book.shared.length}
+            </span>
           </p>
           {btnRequestBook}
         </div>
-        <div className='col-md-6'>
+        <div className="col-md-6">
           <h3 className="mb-4">This book is ocupate by</h3>
           {book.shared.map(member => (
-            <div key={member.code} className='card bg-primary text-white'>
-              <div className='card-body'>
-                {member.name} {member.last}
-                <p>
-                  <span className="font-weight-bold">Career: </span>
-                  <span className='badge badge-primary'>{member.career}</span>
-                </p>
-                <p>
-                  <span className="font-weight-bold">Code: </span>
-                  <span className='badge badge-primary'>{member.code}</span>
-                </p>
-              </div>
-              <div className='card-footer'>
-                {member.date_request}
-              </div>
-            </div>
+            <Ocupate
+              key={member.code}
+              member={member}
+              returnBook={this.returnBook}
+            />
           ))}
         </div>
       </div>
@@ -87,7 +101,7 @@ class DetailtBook extends Component {
 
 DetailtBook.propTypes = {
   firestore: PropTypes.object.isRequired
-}
+};
 
 export default compose(
   firestoreConnect(props => [
