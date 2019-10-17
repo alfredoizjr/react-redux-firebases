@@ -16,6 +16,10 @@ class DetailtBook extends Component {
 
     const { book } = this.props
 
+    let btnRequestBook = (book.store - book.shared.length > 0)
+      ? <Link className='btn btn-success' to={`/book/search/${book.id}`} >Rquest this book</Link>
+      : null;
+
     return (
       <div className="row mt-5">
         <div className="col-md-6">
@@ -31,8 +35,11 @@ class DetailtBook extends Component {
             <i className="fas fa-pencil-alt"></i> Edit
           </Link>
         </div>
-        <div className="col-md-12">
+        <div className='col-md-12'>
           <hr className="m-5" />
+        </div>
+        <div className="col-md-6">
+
           <h3 className="mb-4">{book.title}</h3>
           <p>
             <span className="font-weight-bold">Editor: </span>
@@ -46,13 +53,39 @@ class DetailtBook extends Component {
             <span className="font-weight-bold">In store: </span>
             <span className='badge badge-primary'>{book.store}</span>
           </p>
+          <p>
+            <span className="font-weight-bold">Avaliable: </span>
+            <span className='badge badge-primary'>{book.store - book.shared.length}</span>
+          </p>
+          {btnRequestBook}
+        </div>
+        <div className='col-md-6'>
+          <h3 className="mb-4">This book is ocupate by</h3>
+          {book.shared.map(member => (
+            <div key={member.code} className='card bg-primary text-white'>
+              <div className='card-body'>
+                {member.name} {member.last}
+                <p>
+                  <span className="font-weight-bold">Career: </span>
+                  <span className='badge badge-primary'>{member.career}</span>
+                </p>
+                <p>
+                  <span className="font-weight-bold">Code: </span>
+                  <span className='badge badge-primary'>{member.code}</span>
+                </p>
+              </div>
+              <div className='card-footer'>
+                {member.date_request}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );
   }
 }
 
-DetailtBook.propTypes ={
+DetailtBook.propTypes = {
   firestore: PropTypes.object.isRequired
 }
 

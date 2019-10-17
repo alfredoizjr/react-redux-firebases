@@ -44,6 +44,7 @@ const Books = ({ books, firestore }) => {
               <th scope="col">Editor</th>
               <th scope="col">ISBN</th>
               <th scope="col">In Store</th>
+              <th scope="col">Avaliable</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -54,6 +55,7 @@ const Books = ({ books, firestore }) => {
                 <td>{book.editor}</td>
                 <td>{book.ISBN}</td>
                 <td>{book.store}</td>
+                <td>{book.store - book.shared.length}</td>
                 <td>
                   <Link
                     className="btn btn-success"
